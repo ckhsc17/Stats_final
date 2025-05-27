@@ -14593,7 +14593,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%E7%94%A8%E6%AD%BB%E5%82%B7%E4%BA%BA%E6%95%B8%E5%81%9A-OLS-%E6%A8%A1%E5%9E%8B">&#29992;&#27515;&#20663;&#20154;&#25976;&#20570; OLS &#27169;&#22411;<a class="anchor-link" href="#%E7%94%A8%E6%AD%BB%E5%82%B7%E4%BA%BA%E6%95%B8%E5%81%9A-OLS-%E6%A8%A1%E5%9E%8B">&#182;</a></h3>
+<h3 id="%E7%94%A8Popularity%E5%81%9A-OLS-%E6%A8%A1%E5%9E%8B">&#29992;Popularity&#20570; OLS &#27169;&#22411;<a class="anchor-link" href="#%E7%94%A8Popularity%E5%81%9A-OLS-%E6%A8%A1%E5%9E%8B">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -14602,7 +14602,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -14634,20 +14634,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>c:\Users\yuanr\anaconda3\Lib\site-packages\pandas\core\arrays\masked.py:60: UserWarning: Pandas requires version &#39;1.3.6&#39; or newer of &#39;bottleneck&#39; (version &#39;1.3.5&#39; currently installed).
-  from pandas.core import (
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
 
 
 
@@ -14696,6 +14683,54 @@ Name: count, dtype: int64</pre>
 
 </div>
 
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
+
+<span class="k">def</span> <span class="nf">backward_selection</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">threshold_in</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+    <span class="n">initial_features</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">remaining_features</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">remaining_features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">changed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">worst_pval</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">worst_candidate</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">for</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="n">remaining_features</span><span class="p">:</span>
+            <span class="n">formula</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{}</span><span class="s2"> ~ </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s1">' + '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">remaining_features</span><span class="p">))</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+            <span class="n">pval</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="n">candidate</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">pval</span> <span class="o">&gt;</span> <span class="n">threshold_in</span> <span class="ow">and</span> <span class="n">pval</span> <span class="o">&gt;</span> <span class="n">worst_pval</span><span class="p">:</span>
+                <span class="n">worst_candidate</span> <span class="o">=</span> <span class="n">candidate</span>
+                <span class="n">worst_pval</span> <span class="o">=</span> <span class="n">pval</span>
+
+        <span class="k">if</span> <span class="n">worst_candidate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">remaining_features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">worst_candidate</span><span class="p">)</span>
+            <span class="n">changed</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">worst_candidate</span><span class="si">}</span><span class="s2"> is removed with p-value </span><span class="si">{</span><span class="n">worst_pval</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">changed</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">'No variable is removed. Stop.'</span><span class="p">)</span>
+            <span class="k">break</span>
+
+    <span class="n">formula</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{}</span><span class="s2"> ~ </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s1">' + '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">remaining_features</span><span class="p">))</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
 </div>
 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14832,54 +14867,6 @@ strong multicollinearity or other numerical problems.
 
 </div>
 
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
-
-<span class="k">def</span> <span class="nf">backward_selection</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">threshold_in</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
-    <span class="n">initial_features</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">remaining_features</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-    <span class="n">remaining_features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-
-    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">changed</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">worst_pval</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">worst_candidate</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="k">for</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="n">remaining_features</span><span class="p">:</span>
-            <span class="n">formula</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{}</span><span class="s2"> ~ </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s1">' + '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">remaining_features</span><span class="p">))</span>
-            <span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-            <span class="n">pval</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="n">candidate</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">pval</span> <span class="o">&gt;</span> <span class="n">threshold_in</span> <span class="ow">and</span> <span class="n">pval</span> <span class="o">&gt;</span> <span class="n">worst_pval</span><span class="p">:</span>
-                <span class="n">worst_candidate</span> <span class="o">=</span> <span class="n">candidate</span>
-                <span class="n">worst_pval</span> <span class="o">=</span> <span class="n">pval</span>
-
-        <span class="k">if</span> <span class="n">worst_candidate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">remaining_features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">worst_candidate</span><span class="p">)</span>
-            <span class="n">changed</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">worst_candidate</span><span class="si">}</span><span class="s2"> is removed with p-value </span><span class="si">{</span><span class="n">worst_pval</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">changed</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">'No variable is removed. Stop.'</span><span class="p">)</span>
-            <span class="k">break</span>
-
-    <span class="n">formula</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{}</span><span class="s2"> ~ </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s1">' + '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">remaining_features</span><span class="p">))</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">model</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
 </div>
 
 </div>
@@ -16898,6 +16885,242 @@ Notes:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 [2] The condition number is large, 2.39e+06. This might indicate that there are
 strong multicollinearity or other numerical problems.
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Genre-Gaming">Genre Gaming<a class="anchor-link" href="#Genre-Gaming">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">high</span><span class="p">,</span> <span class="n">low</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'hip-hop'</span><span class="p">,</span> <span class="s1">'hiphop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'j-pop'</span><span class="p">,</span> <span class="s1">'jpop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'k-pop'</span><span class="p">,</span> <span class="s1">'kpop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'r&amp;b'</span><span class="p">,</span> <span class="s1">'r8b'</span><span class="p">)</span>
+
+<span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'track_artist'</span><span class="p">,</span> <span class="s1">'time_signature'</span><span class="p">,</span> <span class="s1">'track_href'</span><span class="p">,</span> <span class="s1">'uri'</span><span class="p">,</span> <span class="s1">'track_album_name'</span><span class="p">,</span> <span class="s1">'playlist_name'</span><span class="p">,</span> <span class="s1">'analysis_url'</span><span class="p">,</span> <span class="s1">'track_id'</span><span class="p">,</span> <span class="s1">'track_name'</span><span class="p">,</span> <span class="s1">'track_album_release_date'</span><span class="p">,</span> <span class="s1">'track_album_id'</span><span class="p">,</span> <span class="s1">'id'</span><span class="p">,</span> <span class="s1">'playlist_subgenre'</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">,</span> <span class="s1">'playlist_id'</span><span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">drop_cols</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">==</span>  <span class="s1">'gaming'</span> <span class="p">]</span>  <span class="c1"># 去除 track_popularity &lt;= 0 的資料</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+<span class="n">exclude_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'track_popularity'</span><span class="p">,</span> <span class="s1">'playlist_genre'</span><span class="p">]</span>  <span class="c1"># track_popularity 是目標變數，playlist_genre 已經 dummy</span>
+<span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude_cols</span><span class="p">]</span>
+<span class="n">df_model</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">[</span><span class="n">predictors</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 自動產生公式</span>
+<span class="n">formula</span> <span class="o">=</span> <span class="s2">"track_popularity ~ "</span> <span class="o">+</span> <span class="s2">" + "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df_model</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="c1"># 建模</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">[</span><span class="s2">"track_popularity"</span><span class="p">],</span> <span class="n">df_model</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1"># 顯示結果</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>playlist_genre
+gaming    133
+Name: count, dtype: int64
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:       track_popularity   R-squared:                       0.673
+Model:                            OLS   Adj. R-squared:                  0.641
+Method:                 Least Squares   F-statistic:                     20.61
+Date:                Wed, 28 May 2025   Prob (F-statistic):           8.35e-24
+Time:                        00:10:53   Log-Likelihood:                -502.42
+No. Observations:                 133   AIC:                             1031.
+Df Residuals:                     120   BIC:                             1068.
+Df Model:                          12                                         
+Covariance Type:            nonrobust                                         
+====================================================================================
+                       coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------------
+Intercept           45.8810     11.503      3.989      0.000      23.106      68.657
+energy               1.5385      9.058      0.170      0.865     -16.396      19.473
+tempo                0.0816      0.038      2.140      0.034       0.006       0.157
+danceability        38.7077      6.793      5.698      0.000      25.257      52.158
+loudness             0.3682      0.354      1.039      0.301      -0.333       1.070
+liveness            -7.2925      8.713     -0.837      0.404     -24.543       9.958
+valence             -4.8929      5.203     -0.940      0.349     -15.195       5.409
+speechiness         -0.9669     11.626     -0.083      0.934     -23.985      22.051
+instrumentalness   -20.1850      3.753     -5.378      0.000     -27.616     -12.754
+mode                -0.4646      2.082     -0.223      0.824      -4.586       3.657
+key                  0.1746      0.279      0.626      0.532      -0.377       0.727
+duration_ms       9.434e-07   1.96e-05      0.048      0.962   -3.79e-05    3.98e-05
+acousticness         4.4867      4.971      0.903      0.369      -5.355      14.328
+==============================================================================
+Omnibus:                        3.006   Durbin-Watson:                   1.295
+Prob(Omnibus):                  0.222   Jarque-Bera (JB):                2.463
+Skew:                          -0.283   Prob(JB):                        0.292
+Kurtosis:                       3.354   Cond. No.                     2.66e+06
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 2.66e+06. This might indicate that there are
+strong multicollinearity or other numerical problems.
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Backwards-Stepwise-Regression">Backwards Stepwise Regression<a class="anchor-link" href="#Backwards-Stepwise-Regression">&#182;</a></h2><h3 id="Genre-Pop">Genre Pop<a class="anchor-link" href="#Genre-Pop">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">high</span><span class="p">,</span> <span class="n">low</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'hip-hop'</span><span class="p">,</span> <span class="s1">'hiphop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'j-pop'</span><span class="p">,</span> <span class="s1">'jpop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'k-pop'</span><span class="p">,</span> <span class="s1">'kpop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'r&amp;b'</span><span class="p">,</span> <span class="s1">'r8b'</span><span class="p">)</span>
+
+<span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'track_artist'</span><span class="p">,</span> <span class="s1">'time_signature'</span><span class="p">,</span> <span class="s1">'track_href'</span><span class="p">,</span> <span class="s1">'uri'</span><span class="p">,</span> <span class="s1">'track_album_name'</span><span class="p">,</span> <span class="s1">'playlist_name'</span><span class="p">,</span> <span class="s1">'analysis_url'</span><span class="p">,</span> <span class="s1">'track_id'</span><span class="p">,</span> <span class="s1">'track_name'</span><span class="p">,</span> <span class="s1">'track_album_release_date'</span><span class="p">,</span> <span class="s1">'track_album_id'</span><span class="p">,</span> <span class="s1">'id'</span><span class="p">,</span> <span class="s1">'playlist_subgenre'</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">,</span> <span class="s1">'playlist_id'</span><span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">drop_cols</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">==</span>  <span class="s1">'gaming'</span> <span class="p">]</span>  <span class="c1"># 去除 track_popularity &lt;= 0 的資料</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+
+<span class="c1"># 建立模型資料集，包含所有欄位（去除目標變數與 genre_dummies 重複欄位）</span>
+<span class="n">exclude_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span>  <span class="c1"># track_popularity 是目標變數，playlist_genre 已經 dummy</span>
+<span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude_cols</span><span class="p">]</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">predictors</span><span class="p">],</span>
+    
+<span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">backward_selection</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">response</span> <span class="o">=</span> <span class="s1">'track_popularity'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>playlist_genre
+gaming    133
+Name: count, dtype: int64
+duration_ms is removed with p-value 0.9617.
+
+speechiness is removed with p-value 0.9348.
+
+energy is removed with p-value 0.8690.
+
+mode is removed with p-value 0.8230.
+
+key is removed with p-value 0.4682.
+
+liveness is removed with p-value 0.4174.
+
+valence is removed with p-value 0.3164.
+
+acousticness is removed with p-value 0.3163.
+
+loudness is removed with p-value 0.4040.
+
+No variable is removed. Stop.
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:       track_popularity   R-squared:                       0.663
+Model:                            OLS   Adj. R-squared:                  0.655
+Method:                 Least Squares   F-statistic:                     84.53
+Date:                Wed, 28 May 2025   Prob (F-statistic):           2.62e-30
+Time:                        00:11:08   Log-Likelihood:                -504.53
+No. Observations:                 133   AIC:                             1017.
+Df Residuals:                     129   BIC:                             1029.
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+====================================================================================
+                       coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------------
+Intercept           42.1263      5.706      7.383      0.000      30.837      53.416
+tempo                0.0903      0.035      2.564      0.012       0.021       0.160
+danceability        37.6855      5.469      6.891      0.000      26.865      48.506
+instrumentalness   -20.1574      3.094     -6.514      0.000     -26.280     -14.035
+==============================================================================
+Omnibus:                        4.576   Durbin-Watson:                   1.261
+Prob(Omnibus):                  0.101   Jarque-Bera (JB):                4.072
+Skew:                          -0.350   Prob(JB):                        0.131
+Kurtosis:                       3.493   Cond. No.                         975.
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 </pre>
 </div>
 </div>
