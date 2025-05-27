@@ -14602,7 +14602,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -14647,7 +14647,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
 
 
 
@@ -14839,7 +14839,7 @@ strong multicollinearity or other numerical problems.
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
@@ -16380,6 +16380,546 @@ p-value: 0.0000
 
 </div>
 
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Genre-Pop">Genre Pop<a class="anchor-link" href="#Genre-Pop">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">high</span><span class="p">,</span> <span class="n">low</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'hip-hop'</span><span class="p">,</span> <span class="s1">'hiphop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'j-pop'</span><span class="p">,</span> <span class="s1">'jpop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'k-pop'</span><span class="p">,</span> <span class="s1">'kpop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'r&amp;b'</span><span class="p">,</span> <span class="s1">'r8b'</span><span class="p">)</span>
+
+<span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'track_artist'</span><span class="p">,</span> <span class="s1">'time_signature'</span><span class="p">,</span> <span class="s1">'track_href'</span><span class="p">,</span> <span class="s1">'uri'</span><span class="p">,</span> <span class="s1">'track_album_name'</span><span class="p">,</span> <span class="s1">'playlist_name'</span><span class="p">,</span> <span class="s1">'analysis_url'</span><span class="p">,</span> <span class="s1">'track_id'</span><span class="p">,</span> <span class="s1">'track_name'</span><span class="p">,</span> <span class="s1">'track_album_release_date'</span><span class="p">,</span> <span class="s1">'track_album_id'</span><span class="p">,</span> <span class="s1">'id'</span><span class="p">,</span> <span class="s1">'playlist_subgenre'</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">,</span> <span class="s1">'playlist_id'</span><span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">drop_cols</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">==</span>  <span class="s1">'pop'</span> <span class="p">]</span>  <span class="c1"># 去除 track_popularity &lt;= 0 的資料</span>
+
+<span class="n">exclude_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'track_popularity'</span><span class="p">,</span> <span class="s1">'playlist_genre'</span><span class="p">]</span>  <span class="c1"># track_popularity 是目標變數，playlist_genre 已經 dummy</span>
+<span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude_cols</span><span class="p">]</span>
+<span class="n">df_model</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">[</span><span class="n">predictors</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 自動產生公式</span>
+<span class="n">formula</span> <span class="o">=</span> <span class="s2">"track_popularity ~ "</span> <span class="o">+</span> <span class="s2">" + "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df_model</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="c1"># 建模</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">[</span><span class="s2">"track_popularity"</span><span class="p">],</span> <span class="n">df_model</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1"># 顯示結果</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:       track_popularity   R-squared:                       0.149
+Model:                            OLS   Adj. R-squared:                  0.129
+Method:                 Least Squares   F-statistic:                     7.327
+Date:                Tue, 27 May 2025   Prob (F-statistic):           1.86e-12
+Time:                        22:58:01   Log-Likelihood:                -2342.7
+No. Observations:                 515   AIC:                             4711.
+Df Residuals:                     502   BIC:                             4767.
+Df Model:                          12                                         
+Covariance Type:            nonrobust                                         
+====================================================================================
+                       coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------------
+Intercept           23.7547     14.016      1.695      0.091      -3.783      51.292
+energy             -13.9231     10.101     -1.378      0.169     -33.769       5.922
+tempo                0.0218      0.042      0.522      0.602      -0.060       0.104
+danceability         2.1626      9.742      0.222      0.824     -16.977      21.302
+loudness             1.6798      0.584      2.878      0.004       0.533       2.826
+liveness             0.9940      8.545      0.116      0.907     -15.795      17.783
+valence             20.7627      5.603      3.706      0.000       9.755      31.771
+speechiness         10.1829     17.430      0.584      0.559     -24.061      44.427
+instrumentalness    12.9830      8.688      1.494      0.136      -4.086      30.052
+mode                 1.1920      2.181      0.547      0.585      -3.093       5.477
+key                  0.7794      0.289      2.699      0.007       0.212       1.347
+duration_ms          0.0002   2.45e-05      7.121      0.000       0.000       0.000
+acousticness        17.2352      5.484      3.143      0.002       6.460      28.010
+==============================================================================
+Omnibus:                       37.208   Durbin-Watson:                   0.397
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               38.806
+Skew:                          -0.631   Prob(JB):                     3.75e-09
+Kurtosis:                       2.536   Cond. No.                     3.74e+06
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.74e+06. This might indicate that there are
+strong multicollinearity or other numerical problems.
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Backwards-Stepwise-Regression">Backwards Stepwise Regression<a class="anchor-link" href="#Backwards-Stepwise-Regression">&#182;</a></h2><h3 id="Genre-Pop">Genre Pop<a class="anchor-link" href="#Genre-Pop">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">high</span><span class="p">,</span> <span class="n">low</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'hip-hop'</span><span class="p">,</span> <span class="s1">'hiphop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'j-pop'</span><span class="p">,</span> <span class="s1">'jpop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'k-pop'</span><span class="p">,</span> <span class="s1">'kpop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'r&amp;b'</span><span class="p">,</span> <span class="s1">'r8b'</span><span class="p">)</span>
+
+<span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'track_artist'</span><span class="p">,</span> <span class="s1">'time_signature'</span><span class="p">,</span> <span class="s1">'track_href'</span><span class="p">,</span> <span class="s1">'uri'</span><span class="p">,</span> <span class="s1">'track_album_name'</span><span class="p">,</span> <span class="s1">'playlist_name'</span><span class="p">,</span> <span class="s1">'analysis_url'</span><span class="p">,</span> <span class="s1">'track_id'</span><span class="p">,</span> <span class="s1">'track_name'</span><span class="p">,</span> <span class="s1">'track_album_release_date'</span><span class="p">,</span> <span class="s1">'track_album_id'</span><span class="p">,</span> <span class="s1">'id'</span><span class="p">,</span> <span class="s1">'playlist_subgenre'</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">,</span> <span class="s1">'playlist_id'</span><span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">drop_cols</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">==</span>  <span class="s1">'pop'</span> <span class="p">]</span>  <span class="c1"># 去除 track_popularity &lt;= 0 的資料</span>
+
+
+<span class="c1"># 建立模型資料集，包含所有欄位（去除目標變數與 genre_dummies 重複欄位）</span>
+<span class="n">exclude_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span>  <span class="c1"># track_popularity 是目標變數，playlist_genre 已經 dummy</span>
+<span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude_cols</span><span class="p">]</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">predictors</span><span class="p">],</span>
+    
+<span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">backward_selection</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">response</span> <span class="o">=</span> <span class="s1">'track_popularity'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>liveness is removed with p-value 0.9074.
+
+danceability is removed with p-value 0.8329.
+
+tempo is removed with p-value 0.6245.
+
+mode is removed with p-value 0.5666.
+
+speechiness is removed with p-value 0.5220.
+
+energy is removed with p-value 0.1524.
+
+instrumentalness is removed with p-value 0.2232.
+
+No variable is removed. Stop.
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:       track_popularity   R-squared:                       0.141
+Model:                            OLS   Adj. R-squared:                  0.133
+Method:                 Least Squares   F-statistic:                     16.76
+Date:                Tue, 27 May 2025   Prob (F-statistic):           2.44e-15
+Time:                        23:21:03   Log-Likelihood:                -2345.0
+No. Observations:                 515   AIC:                             4702.
+Df Residuals:                     509   BIC:                             4728.
+Df Model:                           5                                         
+Covariance Type:            nonrobust                                         
+================================================================================
+                   coef    std err          t      P&gt;|t|      [0.025      0.975]
+--------------------------------------------------------------------------------
+Intercept       16.8610      6.734      2.504      0.013       3.632      30.090
+loudness         1.0624      0.456      2.332      0.020       0.167       1.957
+valence         20.2169      4.488      4.504      0.000      11.399      29.035
+key              0.7893      0.287      2.752      0.006       0.226       1.353
+duration_ms      0.0002    2.4e-05      7.065      0.000       0.000       0.000
+acousticness    21.1068      4.726      4.466      0.000      11.821      30.392
+==============================================================================
+Omnibus:                       38.788   Durbin-Watson:                   0.386
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               41.537
+Skew:                          -0.659   Prob(JB):                     9.56e-10
+Kurtosis:                       2.553   Cond. No.                     1.53e+06
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.53e+06. This might indicate that there are
+strong multicollinearity or other numerical problems.
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Genre-%E7%9A%84%E6%9B%B2%E6%95%B8-%3E-100-%E5%81%9A-ols">Genre &#30340;&#26354;&#25976; &gt; 100 &#20570; ols<a class="anchor-link" href="#Genre-%E7%9A%84%E6%9B%B2%E6%95%B8-%3E-100-%E5%81%9A-ols">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">high</span><span class="p">,</span> <span class="n">low</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'hip-hop'</span><span class="p">,</span> <span class="s1">'hiphop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'j-pop'</span><span class="p">,</span> <span class="s1">'jpop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'k-pop'</span><span class="p">,</span> <span class="s1">'kpop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'r&amp;b'</span><span class="p">,</span> <span class="s1">'r8b'</span><span class="p">)</span>
+
+<span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'track_artist'</span><span class="p">,</span> <span class="s1">'time_signature'</span><span class="p">,</span> <span class="s1">'track_href'</span><span class="p">,</span> <span class="s1">'uri'</span><span class="p">,</span> <span class="s1">'track_album_name'</span><span class="p">,</span> <span class="s1">'playlist_name'</span><span class="p">,</span> <span class="s1">'analysis_url'</span><span class="p">,</span> <span class="s1">'track_id'</span><span class="p">,</span> <span class="s1">'track_name'</span><span class="p">,</span> <span class="s1">'track_album_release_date'</span><span class="p">,</span> <span class="s1">'track_album_id'</span><span class="p">,</span> <span class="s1">'id'</span><span class="p">,</span> <span class="s1">'playlist_subgenre'</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">,</span> <span class="s1">'playlist_id'</span><span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">drop_cols</span><span class="p">)</span>
+<span class="c1"># 篩選 playlist_genre 數量大於 30 的資料</span>
+<span class="n">genre_counts</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">genre_counts</span><span class="p">[</span><span class="n">genre_counts</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">)]</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+<span class="n">genre_dummies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"playlist_genre"</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"genre"</span><span class="p">,</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">exclude_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'track_popularity'</span><span class="p">,</span> <span class="s1">'playlist_genre'</span><span class="p">]</span>  <span class="c1"># track_popularity 是目標變數，playlist_genre 已經 dummy</span>
+<span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude_cols</span><span class="p">]</span>
+<span class="n">df_model</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">[</span><span class="n">predictors</span><span class="p">],</span> <span class="n">genre_dummies</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 自動產生公式</span>
+<span class="n">formula</span> <span class="o">=</span> <span class="s2">"track_popularity ~ "</span> <span class="o">+</span> <span class="s2">" + "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df_model</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="c1"># 建模</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">[</span><span class="s2">"track_popularity"</span><span class="p">],</span> <span class="n">df_model</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1"># 顯示結果</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>playlist_genre
+electronic    589
+pop           515
+latin         425
+hiphop        395
+ambient       359
+rock          345
+lofi          299
+world         228
+arabic        208
+brazilian     148
+jazz          146
+gaming        133
+classical     121
+Name: count, dtype: int64
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:       track_popularity   R-squared:                       0.285
+Model:                            OLS   Adj. R-squared:                  0.281
+Method:                 Least Squares   F-statistic:                     64.65
+Date:                Tue, 27 May 2025   Prob (F-statistic):          1.31e-261
+Time:                        23:05:58   Log-Likelihood:                -16681.
+No. Observations:                3910   AIC:                         3.341e+04
+Df Residuals:                    3885   BIC:                         3.357e+04
+Df Model:                          24                                         
+Covariance Type:            nonrobust                                         
+============================================================================================
+                               coef    std err          t      P&gt;|t|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+Intercept                   45.3006      3.338     13.572      0.000      38.756      51.845
+genre_arabic[T.True]        -2.2033      1.551     -1.421      0.155      -5.243       0.837
+genre_brazilian[T.True]    -14.6828      1.762     -8.335      0.000     -18.137     -11.229
+genre_classical[T.True]      4.5807      1.963      2.333      0.020       0.732       8.430
+genre_electronic[T.True]     1.5196      1.254      1.212      0.226      -0.939       3.978
+genre_gaming[T.True]        19.0899      1.818     10.503      0.000      15.526      22.654
+genre_hiphop[T.True]         8.2861      1.354      6.122      0.000       5.632      10.940
+genre_jazz[T.True]          -2.6089      1.892     -1.379      0.168      -6.318       1.100
+genre_latin[T.True]          0.4878      1.317      0.370      0.711      -2.095       3.070
+genre_lofi[T.True]          -0.3903      1.656     -0.236      0.814      -3.636       2.856
+genre_pop[T.True]           10.6585      1.292      8.251      0.000       8.126      13.191
+genre_rock[T.True]          13.8000      1.451      9.512      0.000      10.956      16.644
+genre_world[T.True]        -22.7545      1.524    -14.935      0.000     -25.742     -19.767
+energy                      -4.3064      2.418     -1.781      0.075      -9.048       0.435
+tempo                        0.0116      0.010      1.157      0.247      -0.008       0.031
+danceability                17.1835      2.217      7.751      0.000      12.837      21.530
+loudness                     0.1718      0.090      1.918      0.055      -0.004       0.347
+liveness                     0.4659      2.326      0.200      0.841      -4.095       5.027
+valence                     -2.5481      1.436     -1.774      0.076      -5.364       0.268
+speechiness                 -7.6887      3.125     -2.461      0.014     -13.815      -1.563
+instrumentalness            -8.2263      1.310     -6.281      0.000     -10.794      -5.659
+mode                        -0.2857      0.573     -0.498      0.618      -1.410       0.839
+key                          0.2392      0.078      3.060      0.002       0.086       0.393
+duration_ms               8.732e-06   4.36e-06      2.003      0.045    1.86e-07    1.73e-05
+acousticness                -1.0567      1.377     -0.767      0.443      -3.757       1.644
+==============================================================================
+Omnibus:                      305.272   Durbin-Watson:                   0.459
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              378.768
+Skew:                          -0.739   Prob(JB):                     5.64e-83
+Kurtosis:                       3.371   Cond. No.                     3.23e+06
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.23e+06. This might indicate that there are
+strong multicollinearity or other numerical problems.
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Backwards-Stepwise-Regression">Backwards Stepwise Regression<a class="anchor-link" href="#Backwards-Stepwise-Regression">&#182;</a></h2><h3 id="%E6%87%89%E8%AE%8A%E6%95%B8%E7%82%BA-$-%5Ctext%7Btrack%5C_popularity%7D-$">&#25033;&#35722;&#25976;&#28858; $ \text{track\_popularity} $<a class="anchor-link" href="#%E6%87%89%E8%AE%8A%E6%95%B8%E7%82%BA-$-%5Ctext%7Btrack%5C_popularity%7D-$">&#182;</a></h3><h4 id="Genre-%E7%9A%84%E6%9B%B2%E6%95%B8-%3E-100">Genre &#30340;&#26354;&#25976; &gt; 100<a class="anchor-link" href="#Genre-%E7%9A%84%E6%9B%B2%E6%95%B8-%3E-100">&#182;</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">high</span><span class="p">,</span> <span class="n">low</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'hip-hop'</span><span class="p">,</span> <span class="s1">'hiphop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'j-pop'</span><span class="p">,</span> <span class="s1">'jpop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'k-pop'</span><span class="p">,</span> <span class="s1">'kpop'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'r&amp;b'</span><span class="p">,</span> <span class="s1">'r8b'</span><span class="p">)</span>
+
+<span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'track_artist'</span><span class="p">,</span> <span class="s1">'time_signature'</span><span class="p">,</span> <span class="s1">'track_href'</span><span class="p">,</span> <span class="s1">'uri'</span><span class="p">,</span> <span class="s1">'track_album_name'</span><span class="p">,</span> <span class="s1">'playlist_name'</span><span class="p">,</span> <span class="s1">'analysis_url'</span><span class="p">,</span> <span class="s1">'track_id'</span><span class="p">,</span> <span class="s1">'track_name'</span><span class="p">,</span> <span class="s1">'track_album_release_date'</span><span class="p">,</span> <span class="s1">'track_album_id'</span><span class="p">,</span> <span class="s1">'id'</span><span class="p">,</span> <span class="s1">'playlist_subgenre'</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">,</span> <span class="s1">'playlist_id'</span><span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">drop_cols</span><span class="p">)</span>
+<span class="c1"># 篩選 playlist_genre 數量大於 100 的資料</span>
+<span class="n">genre_counts</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">genre_counts</span><span class="p">[</span><span class="n">genre_counts</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">)]</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+
+<span class="n">genre_dummies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"playlist_genre"</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"genre"</span><span class="p">,</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="c1"># 建立模型資料集，包含所有欄位（去除目標變數與 genre_dummies 重複欄位）</span>
+<span class="n">exclude_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'playlist_genre'</span><span class="p">]</span>  <span class="c1"># track_popularity 是目標變數，playlist_genre 已經 dummy</span>
+<span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude_cols</span><span class="p">]</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">predictors</span><span class="p">],</span>
+    <span class="n">genre_dummies</span><span class="p">[[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">genre_dummies</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'genre_'</span><span class="p">)]]</span>
+<span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">backward_selection</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">response</span> <span class="o">=</span> <span class="s1">'track_popularity'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>playlist_genre
+electronic    589
+pop           515
+latin         425
+hiphop        395
+ambient       359
+rock          345
+lofi          299
+world         228
+arabic        208
+brazilian     148
+jazz          146
+gaming        133
+classical     121
+Name: count, dtype: int64
+liveness is removed with p-value 0.8413.
+
+genre_lofi is removed with p-value 0.8191.
+
+mode is removed with p-value 0.6166.
+
+genre_latin is removed with p-value 0.5988.
+
+acousticness is removed with p-value 0.4259.
+
+tempo is removed with p-value 0.2333.
+
+energy is removed with p-value 0.1439.
+
+genre_electronic is removed with p-value 0.2047.
+
+loudness is removed with p-value 0.0840.
+
+genre_jazz is removed with p-value 0.1002.
+
+No variable is removed. Stop.
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:       track_popularity   R-squared:                       0.283
+Model:                            OLS   Adj. R-squared:                  0.281
+Method:                 Least Squares   F-statistic:                     109.9
+Date:                Tue, 27 May 2025   Prob (F-statistic):          1.04e-268
+Time:                        23:07:46   Log-Likelihood:                -16687.
+No. Observations:                3910   AIC:                         3.340e+04
+Df Residuals:                    3895   BIC:                         3.350e+04
+Df Model:                          14                                         
+Covariance Type:            nonrobust                                         
+====================================================================================
+                       coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------------
+Intercept           42.2937      1.740     24.301      0.000      38.882      45.706
+danceability        18.5472      1.948      9.522      0.000      14.728      22.366
+valence             -3.3686      1.355     -2.486      0.013      -6.025      -0.712
+speechiness         -8.0697      3.070     -2.629      0.009     -14.088      -2.051
+instrumentalness    -9.7963      0.960    -10.200      0.000     -11.679      -7.913
+key                  0.2504      0.077      3.243      0.001       0.099       0.402
+duration_ms       9.221e-06   4.25e-06      2.172      0.030    8.98e-07    1.75e-05
+genre_arabic        -2.7301      1.296     -2.106      0.035      -5.271      -0.189
+genre_brazilian    -15.2708      1.527    -10.002      0.000     -18.264     -12.277
+genre_classical      3.9562      1.771      2.234      0.026       0.484       7.429
+genre_gaming        18.8938      1.558     12.126      0.000      15.839      21.949
+genre_hiphop         7.8734      1.049      7.506      0.000       5.817       9.930
+genre_pop           10.2316      0.927     11.036      0.000       8.414      12.049
+genre_rock          13.3124      1.117     11.921      0.000      11.123      15.502
+genre_world        -23.0390      1.229    -18.746      0.000     -25.449     -20.629
+==============================================================================
+Omnibus:                      295.885   Durbin-Watson:                   0.464
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              364.723
+Skew:                          -0.726   Prob(JB):                     6.33e-80
+Kurtosis:                       3.359   Cond. No.                     2.39e+06
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 2.39e+06. This might indicate that there are
+strong multicollinearity or other numerical problems.
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+     </div>
+</div>
+</div>
 </div>
 
 </div>
